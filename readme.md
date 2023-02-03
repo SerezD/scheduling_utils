@@ -2,6 +2,8 @@
 
 Implements some scheduling functions to decay or ramp values across timestamps.  
 
+Install with: `pip install scheduling_utils`
+
 To initialize and use for example a cosine scheduler, do the following: 
 
 ```
