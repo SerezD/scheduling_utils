@@ -22,9 +22,9 @@ for step in range(10):
 
 Available Schedulers at current version:
 - Linear
-    ![linear-ramp](imagesinear_ramp.png)
-    ![linear-decay](imagesinear_decay.png)
+    ![linear-ramp](images/linear_ramp.png)
+    ![linear-decay](images/linear_decay.png)
 - Cosine
-    ![cosine-ramp](imagesosine_ramp.png)
-    ![cosine-decay](imagesosine_decay.png)
+    ![cosine-ramp](images/cosine_ramp.png)
+    ![cosine-decay](images/cosine_decay.png)
  
