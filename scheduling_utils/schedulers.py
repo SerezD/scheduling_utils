@@ -69,3 +69,31 @@ class LinearScheduler(Scheduler):
         return perc_step
 
 
+class LinearCosineScheduler:
+    def __init__(self, start_step: int, stop_step: int, start_value: float, stop_value: float, th_step: int):
+        """
+        Linear Warmup Followed by Cosine Decay.
+        Learning rate increases from start_step tp th_step (0.0 to start_value) and then decays to stop_value
+        """
+
+        if start_value <= stop_value:
+            raise AttributeError('the LinearCosine Scheduler must decay.')
+
+        if start_step >= stop_step:
+            raise AttributeError('In the scheduler, start step must be minor that stop step!')
+
+        if not start_step < th_step and th_step < stop_step:
+            raise AttributeError('In the scheduler, threshold step must lay between start and stop steps!')
+
+        super().__init__()
+
+        self.th_step = th_step
+        self.linear_wu = LinearScheduler(start_step, th_step, 0, start_value)
+        self.cosine_decay = CosineScheduler(th_step, stop_step, start_value, stop_value)
+
+    def step(self, step: int):
+
+        if step < self.th_step:
+            return self.linear_wu.step(step)
+        else:
+            return self.cosine_decay.step(step)

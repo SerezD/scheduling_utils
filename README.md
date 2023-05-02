@@ -29,4 +29,6 @@ Available Schedulers at current version:
 - Cosine
     ![cosine-ramp](images/cosine_ramp.png)
     ![cosine-decay](images/cosine_decay.png)
+- LinearCosine
+    ![linear-cosine](images/linear_cosine.png)
  
