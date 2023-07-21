@@ -30,11 +30,12 @@ class Scheduler(ABC):
 
     def _get_perc_step(self, step: int):
 
-        # step normalized in 0_1 range
+        # get step normalized in 0_1 range
         return max(0, min(1, (step - self._start_step) / (self._stop_step - self._start_step)))
 
     def _get_value(self, perc_step: float):
-        return perc_step * self._stop_value + (1 - perc_step) * self._start_value
+        # get value at perc_step
+        return self._start_value + (self._stop_value - self._start_value) * perc_step
 
     def step(self, step: int):
 
@@ -55,7 +56,10 @@ class CosineScheduler(Scheduler):
     def warp_func(self, perc_step: float):
 
         # warp with cosine
-        return 1.0 - math.cos(perc_step * math.pi / 2)
+        # math.cos(math.pi * perc_step) goes from 1 to -1
+        # sum 1 and mul 0.5 to normalize
+        # then reverse since you still want a perc step as output
+        return 1 - (0.5 * (1. + math.cos(math.pi * perc_step)))
 
 
 class LinearScheduler(Scheduler):
