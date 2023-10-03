@@ -12,9 +12,9 @@ class Scheduler(ABC):
             raise AttributeError('In the scheduler, start step must be minor that stop step!')
 
         if start_value < stop_value:
-            print('Initializing Scheduler to Ramp Value')
+            print(f'Initializing Scheduler: ramp from {start_value} to {stop_value}')
         elif start_value > stop_value:
-            print('Initializing Scheduler to Decay Value')
+            print(f'Initializing Scheduler: decay from {stop_value} to {start_value}')
         else:
             print('Initializing Scheduler with no effect!')
 
@@ -82,9 +82,6 @@ class LinearCosineScheduler:
 
         if start_value <= stop_value:
             raise AttributeError('the LinearCosine Scheduler must decay.')
-
-        if start_step >= stop_step:
-            raise AttributeError('In the scheduler, start step must be minor that stop step!')
 
         if not start_step < th_step and th_step < stop_step:
             raise AttributeError('In the scheduler, threshold step must lay between start and stop steps!')

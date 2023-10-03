@@ -1,7 +1,8 @@
 from matplotlib import pyplot as plt
 import random
 
-from schedulers import CosineScheduler, LinearScheduler, LinearCosineScheduler
+# from schedulers import CosineScheduler, LinearScheduler, LinearCosineScheduler
+from schedulers_cpp import CosineScheduler, LinearScheduler, LinearCosineScheduler
 
 
 def plot_schedulers():
