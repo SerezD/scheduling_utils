@@ -1,6 +1,10 @@
 #include <iostream>
 #include <cmath>
 
+#ifndef M_PI
+#define M_PI (3.141592653589793238462643383279502884L)
+#endif
+
 // abstract base scheduler
 class Scheduler {
 
@@ -62,6 +66,9 @@ class Scheduler {
             // get and return correct value
             return get_value(perc_step);
         }
+
+        // Virtual destructor
+        virtual ~Scheduler() {}
 
 };
 
@@ -165,41 +172,42 @@ int main() {
 extern "C" {
 
     // Linear Scheduler
-    void* LinearScheduler_create(int start_step, int stop_step, double start_value, double stop_value) {
+    LinearScheduler* LinearScheduler_create(int start_step, int stop_step, double start_value, double stop_value) {
         return new LinearScheduler(start_step, stop_step, start_value, stop_value);
     }
 
-    double LinearScheduler_step(void* instance, int step) {
+    double LinearScheduler_step(LinearScheduler* instance, int step) {
         return static_cast<LinearScheduler*>(instance)->step(step);
     }
 
-    void LinearScheduler_destroy(void* instance) {
+    void LinearScheduler_destroy(LinearScheduler* instance) {
         delete static_cast<LinearScheduler*>(instance);
     }
 
     // Cosine Scheduler
-    void* CosineScheduler_create(int start_step, int stop_step, double start_value, double stop_value) {
+    CosineScheduler* CosineScheduler_create(int start_step, int stop_step, double start_value, double stop_value) {
         return new CosineScheduler(start_step, stop_step, start_value, stop_value);
     }
 
-    double CosineScheduler_step(void* instance, int step) {
+    double CosineScheduler_step(CosineScheduler* instance, int step) {
         return static_cast<CosineScheduler*>(instance)->step(step);
     }
 
-    void CosineScheduler_destroy(void* instance) {
+    void CosineScheduler_destroy(CosineScheduler* instance) {
         delete static_cast<CosineScheduler*>(instance);
     }
 
     // LinearCosine Scheduler
-    void* LinearCosineScheduler_create(int start_step, int stop_step, double start_value, double stop_value, int th_step) {
+    LinearCosineScheduler* LinearCosineScheduler_create(int start_step, int stop_step, double start_value, double stop_value, int th_step) {
         return new LinearCosineScheduler(start_step, stop_step, start_value, stop_value, th_step);
     }
 
-    double LinearCosineScheduler_step(void* instance, int step) {
+    double LinearCosineScheduler_step(LinearCosineScheduler* instance, int step) {
         return static_cast<LinearCosineScheduler*>(instance)->step(step);
     }
 
-    void LinearCosineScheduler_destroy(void* instance) {
+    void LinearCosineScheduler_destroy(LinearCosineScheduler* instance) {
         delete static_cast<LinearCosineScheduler*>(instance);
     }
+
 }

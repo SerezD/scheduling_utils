@@ -1,13 +1,17 @@
 import ctypes
 from pathlib import Path
+import platform
 
 # Load the shared library
 this_directory = Path(__file__).parent
-schedulers_cpp = ctypes.CDLL(f'{Path(__file__).parent}/cpp_extensions/schedulers.so')
+
+if 'windows' in platform.system().lower():
+    schedulers_cpp = ctypes.CDLL(f'{this_directory}/cpp_extensions/schedulers_win.dll')
+else:
+    schedulers_cpp = ctypes.CDLL(f'{Path(__file__).parent}/cpp_extensions/schedulers.so')
 
 
 # Define Python wrappers
-
 class CosineScheduler:
 
     def __init__(self, start_step: int, stop_step: int, start_value: float, stop_value: float):
